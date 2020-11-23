@@ -10,7 +10,7 @@ namespace xadrez
         public Cor JogadorAtual { get; private set; }
         public bool Terminada { get; private set; }
         private HashSet<Peca> pecas;
-        private HashSet<Peca> captutadas;
+        private HashSet<Peca> capturadas;
         public bool Xeque { get; private set; }
         public Peca VulneravelEmPassant { get; private set; }
 
@@ -23,7 +23,7 @@ namespace xadrez
             Xeque = false;
             VulneravelEmPassant = null;
             pecas = new HashSet<Peca>();
-            captutadas = new HashSet<Peca>();
+            capturadas = new HashSet<Peca>();
             ColocarPecas();
         }
 
@@ -35,7 +35,7 @@ namespace xadrez
             Tab.ColocarPeca(p, destino);
             if (pecaCapturada != null)
             {
-                captutadas.Add(pecaCapturada);
+                capturadas.Add(pecaCapturada);
             }
 
             // #jogadaespecial roque pequeno
@@ -73,7 +73,7 @@ namespace xadrez
                         posP = new Posicao(destino.Linha - 1, destino.Coluna);
                     }
                     pecaCapturada = Tab.RetirarPeca(posP);
-                    captutadas.Add(pecaCapturada);
+                    capturadas.Add(pecaCapturada);
                 }
             }
 
@@ -87,7 +87,7 @@ namespace xadrez
             if (pecaCapturada != null)
             {
                 Tab.ColocarPeca(pecaCapturada, destino);
-                captutadas.Remove(pecaCapturada);
+                capturadas.Remove(pecaCapturada);
             }
             Tab.ColocarPeca(p, origem);
 
@@ -227,7 +227,7 @@ namespace xadrez
         public HashSet<Peca> pecasCapturadas(Cor cor)
         {
             HashSet<Peca> aux = new HashSet<Peca>();
-            foreach (Peca x in captutadas)
+            foreach (Peca x in capturadas)
             {
                 if (x.Cor == cor)
                 {
